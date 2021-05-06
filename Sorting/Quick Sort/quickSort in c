@@ -1,0 +1,71 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+
+void printArray(int *a,int n){
+    int i=0;
+    for(i=0;i<n;i++){
+        printf("%d ",a[i]);
+    }
+}
+int partition(int start,int end, int *a){
+    int pivot = a[start],temp; //1st element is taken as pivot
+    //pivot should be sorted in such way that all elements to the right of pivot must be greater
+    // and all elements to the left of pivot must be lesser
+    int smallPtr = start+1;
+    int largePtr = end;
+    while(smallPtr < largePtr){
+        //all elements to the right of pivot must be greater- so pivot must be greater in this case
+        while(pivot>a[smallPtr]){
+            smallPtr++;
+        }
+        //all elements to the left of pivot must be lesser- so pivot must be lesser in this case
+        while(pivot<a[largePtr]){
+            largePtr--;
+        }
+        if(smallPtr < largePtr){
+            temp = a[smallPtr];
+            a[smallPtr] = a[largePtr];
+            a[largePtr] = temp;
+            
+        }
+    }
+    temp = a[largePtr];
+    a[largePtr] = a[start];
+    a[start]=temp;
+    return largePtr;
+}
+void quickSort(int start, int end, int *a){
+    if(start<end){
+        int pivot = partition(start,end, a);
+        //in one iteration the pivot element is placed in right position, leaving pivot
+        // the array is splited into two to find the pivot and sort it.
+        quickSort(start,pivot-1,a);
+        quickSort(pivot+1,end,a);
+    }
+}
+int main()
+{
+    int i,n;
+    printf("\n MERGE SORT ");
+    printf("\n Enter the number of elements : ");
+    scanf("%d",&n);
+    int a[n];
+    printf("\nEnter the arry elements\n");
+    for(i=0;i<n;i++){
+        printf("\n Number: ");
+        scanf("%d",&a[i]);
+    }
+    printf("\nArray Elements \n");
+    printArray(a,n);
+    quickSort(0,n-1,a);
+    printf("\nSorted Array \n");
+    printArray(a,n);
+
+}
