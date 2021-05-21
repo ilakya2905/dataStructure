@@ -1,0 +1,228 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include<stdio.h>
+
+struct node{
+    int data;
+    int *next;
+};
+struct node *head = NULL;
+
+void insertBegin(){
+    struct node *current,*temp;;
+    current = (struct node *)malloc(sizeof(struct node));
+    int data;
+    printf("\n Enter the data: ");
+    scanf("%d",&data);
+    if(head == NULL){
+        current->data = data;
+        head = current;
+        current->next = head; 
+        printf("\n INSERTED SUCCESSFULLY");
+    }
+    else{
+        current->data = data;
+        current->next = head;
+        temp=head;
+        //assigning the last node's next with head
+        while(temp->next!=head){
+            temp=temp->next;
+        }
+        temp->next = current;
+        head = current;
+        printf("\n INSERTED SUCCESSFULLY");
+    }
+}
+void insertPosition(){
+    int data,position;
+    printf("\n Enter the data to insert: ");
+    scanf("%d",&data);
+    printf("\n Enter the position: ");
+    scanf("%d",&position);
+    struct node *current,*temp,*ptr;
+    current = (struct node*)malloc(sizeof(struct node));
+    
+    temp=head;
+    for(int i=0;i<position-1;i++){
+        if( temp->next == head ){
+            printf("\n Less Elements, Cant Insert!");
+            return;
+        }
+        temp=temp->next;
+    }
+    ptr = temp->next;
+    current->data = data;
+    current->next = ptr;
+    temp->next= current;
+    printf("\n Inserted Successfully");
+
+
+    
+}
+void insertEnd(){
+    int data;
+    printf("\n Enter the data to insert: ");
+    scanf("%d",&data);
+    struct node *current,*temp,*ptr;
+    current = (struct node*)malloc(sizeof(struct node));
+    if(head == NULL){
+        current->data = data;
+        head = current;
+        current->next = head; 
+        printf("\n INSERTED SUCCESSFULLY");
+    }
+    else{
+        temp = head;
+        while(temp->next!=head){
+            temp=temp->next;
+        }
+        
+        current->data = data;
+        current->next = head;
+        temp->next = current;
+        printf("\n Inserted Successfully");
+
+    }
+    
+}
+void deleteBegin(){
+    struct node *temp,*ptr;
+    if(head==NULL){
+        printf("\n No Elements in Linked List");
+        return;
+    }
+    ptr = head;
+    //assigning the last node's next with head
+    temp=head;
+    while(temp->next!=head){
+        temp=temp->next;
+    }
+    head = ptr->next;
+    temp->next = head;
+    free(ptr);
+   
+    printf("\n Deleted Successfully");
+    
+}
+void deletePosition(){
+    int position;
+    printf("\n Enter the position");
+    scanf("%d",&position);
+    struct node *current,*temp,*ptr;
+    temp=head;
+    for(int i=0;i<position-1;i++){
+        if( temp->next == head ){
+            printf("\n Less Elements, Cant Delete!");
+            return;
+        }
+        temp=temp->next;
+    }
+    ptr= temp->next;
+    temp->next = ptr->next;
+    free(ptr);
+    printf("\n Deleted Successfully");
+}
+void deleteEnd(){
+    struct node *current,*temp,*ptr,*p;
+    current = (struct node*)malloc(sizeof(struct node));
+    if(head == NULL){
+        printf("\n No Elements,cant delete");
+    }
+    else{
+        temp = head;
+        while(temp->next!=head){
+            p=temp;
+            temp=temp->next;
+        }
+        
+        ptr= p->next;
+        p->next = head;
+        free(ptr);
+        printf("\n Deleted Successfully");
+
+    }
+}
+void reverse(){
+    int *prev,*after;
+    struct node *temp;
+    temp=head;
+    prev= NULL;
+    while(temp->next!=head){
+        after=temp->next;
+        temp->next = prev;
+        prev = temp;
+        temp = after;
+    }
+    temp->next= prev;
+    head=temp;
+    //assigning the last node's next with head
+    temp=head;
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
+    temp->next=head;
+    printf("\n Reversed Successfully");
+}
+void display(){
+    struct node *temp;
+    temp=head;
+    if(head == NULL){
+        printf("\n NO ELEMENTS");
+        return;
+    }
+    else{
+        
+        while(temp->next!=head){
+            printf("%d ->",temp->data);
+            temp=temp->next;
+        }
+        printf("%d ",temp->data);
+
+        
+    }
+}
+int main()
+{
+    int option;
+    printf("\n CIRCULAR SINGLY LINKED LIST");
+    while(1){
+        printf("\n 1. Insert at Begining \n 2. Insert at specified position \n 3. Insert at end \n 4. Delete at Begining \n 5. Delete at specified position \n 6. Delete at end \n 7. Reverse \n 8. Display \n 9. Exit \n" );
+        printf("Choose an option...\n");
+        scanf("%d",&option);
+        switch(option){
+            case 1: 
+                insertBegin();
+                break;
+            case 2:
+                insertPosition();
+                break;
+            case 3:
+                insertEnd();
+                break;
+            case 4:
+                deleteBegin();
+                break;
+            case 5:
+                deletePosition();
+                break;
+            case 6:
+                deleteEnd();
+                break;
+            case 7:
+                reverse();
+                break;
+            case 8:
+                display();
+                break;
+            case 9:
+                return 0;
+        }
+    }
+}
