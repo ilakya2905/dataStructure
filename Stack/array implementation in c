@@ -1,0 +1,121 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include <stdbool.h>
+#include<stdlib.h>
+int MAX = 5,top=-1;
+int stack[5];
+bool isEmpty(){
+    if(top==-1){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+bool isFull(){
+    if(top==MAX-1){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+void push(){
+    int element;
+    printf("\n Enter the element to push: ");
+    scanf("%d",&element);
+    if(! isFull()){
+        top++;
+        stack[top] = element;
+        printf("\n Pushed successfully!!!!");
+    }
+    else{
+        printf("\n Stack is full, cant push!");
+    }
+}
+void pop(){
+    if(! isEmpty()){
+        int temp = stack[top];
+        top--;
+        printf("\n Poped successfully");
+    }
+    else{
+        printf("\n Stack is empty, cant pop");
+        
+    }
+}
+void display(){
+    int i;
+    printf("\n Stack elements \n");
+    if(isEmpty()){
+        printf("\n No elements, stack is emplty");
+    }
+    else{
+        for(i=top;i>=0;i--){
+            printf("\n %d",stack[i]);
+            printf("\n ----------------");
+        }
+    }
+    
+}
+int main()
+{
+    int option;
+    printf("\n STACK ARRAY IMPLEMENTATION");
+    while(1){
+        printf("\n 1. Push \n 2. Pop \n 3. Is Empty \n 4. Is Full \n 5. Peek \n 6. Count \n 7. Display \n 8. Exit");
+        printf("\n Enter the choice : ");
+        scanf("%d",&option);
+        switch(option){
+            case 1: 
+                push();
+                break;
+            case 2:
+                pop();
+                break;
+            case 3:
+                if(isEmpty()){
+                    printf("\n True, stack is empty");
+                }
+                else{
+                    printf("\n False, stack is not empty");
+                }
+                break;
+            case 4:
+                if(isFull()){
+                    printf("\n True, stack is full");
+                }
+                else{
+                    printf("\n False, stack is not full");
+                }
+                break;
+            case 5:
+                if(isEmpty()){
+                    printf("\n No elements, stack is empty");
+                }
+                else{
+                    printf("\n Peek element : %d",stack[top]);
+ 
+                }
+                break;
+            case 6:
+                printf("\n Number of elements in stack : %d",top+1);
+                break;
+            case 7:
+                display();
+                break;
+            case 8:
+                return 0;
+        }    
+    }
+    
+
+    return 0;
+}
