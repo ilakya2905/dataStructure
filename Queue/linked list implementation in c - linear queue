@@ -1,0 +1,97 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include<stdlib.h>
+struct queue{
+    int value;
+    int *next;
+};
+struct queue *front = NULL, *rear= NULL;
+void enqueue(){
+    int item;
+    printf("\n Enter the item to be inserted: ");
+    scanf("%d",&item);
+    struct queue *ptr = (struct queue *)malloc(sizeof(struct queue));
+    if(ptr==NULL){
+        //no space in heap-overflow
+        printf("\n Overflow, cant insert");
+        return;
+    }
+    else{
+        if(rear==NULL){
+            ptr->value = item;
+            ptr->next = NULL;
+            rear = ptr;
+            front = ptr;
+            printf("\n Inserted Successfully");
+        }
+        else{
+            ptr->value= item;
+            rear->next= ptr;
+            ptr->next = NULL;
+            rear = ptr;
+            printf("\n Inserted Successfully");
+
+            
+        }
+    }
+}
+void dequeue(){
+    if(front==NULL){
+        printf("\n No elements in queue, cant delete");
+        return;
+    }
+    else{
+        struct queue *ptr = (struct queue *)malloc(sizeof(struct queue));
+        ptr = front;
+        front = front->next;
+        free(ptr);
+        printf("\n Deleted Successfully");
+    }
+}
+void display(){
+    if(front==NULL){
+        printf("\n No elements in queue, cant delete");
+        return;
+    }
+    struct queue *ptr;
+    ptr = front;
+    printf("\n Queue elements \n");
+    while(ptr!=NULL){
+        printf("| %d |",ptr->value);
+        ptr= ptr->next;
+    }
+
+}
+int main()
+{
+     int option;
+    printf("\n QUEUE ARRAY IMPLEMENTATION");
+    while(1){
+        printf("\n 1. Enqueue \n 2. Dequeue \n 3. Display \n 4. Exit");
+        printf("\n Enter the choice : ");
+        scanf("%d",&option);
+        switch(option){
+            case 1: 
+                enqueue();
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                return 0;
+        }    
+    }
+    
+
+    return 0;
+}
