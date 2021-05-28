@@ -1,0 +1,21 @@
+#include<stdio.h>
+void towerOfHanoi(int n, char fromRod, char toRod, char auxRod){
+    if(n==1){
+        printf("\n Disk %d is pushed from %c rod to %c rod", n,fromRod,toRod );
+        return;
+    }
+    else{
+        towerOfHanoi(n-1,fromRod,auxRod,toRod);
+        printf("\n Disk %d is pushed from %c rod to %c rod", n,fromRod,toRod );
+        towerOfHanoi(n-1,auxRod,toRod,fromRod);
+    }
+}
+int main(){
+    int n;
+    printf("\n RECURSION - TOWER OF HANOI");
+    printf("\n Enter number of disks: ");
+    scanf("%d",&n);
+    printf("\n A - Start Rod \n B - Aux Rod \n C - Destination Rod");
+    towerOfHanoi(n,'A','C','B');
+    return 0;
+}
