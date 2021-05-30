@@ -1,0 +1,134 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
+int MAX=5;
+int stack[5];
+int top=-1;
+int adjacency[5][5];
+int vertexCount=0;
+int stackCount=0;
+
+struct vertex{
+    char data;
+    bool isVisited;
+};
+struct vertex *vertices[5];
+
+void addVertex(char data){
+  struct vertex *v= (struct vertex*)malloc(sizeof(struct vertex));
+  v->data = data;
+  v->isVisited = false;
+  vertices[vertexCount++] = v;
+  printf("\n New vertex added!!!");
+}
+
+void printMatrix(){
+    int i,j;
+    printf("\n Adjacency matrix \n ");
+    for(i=0;i<MAX;i++){
+        for(j=0;j<MAX;j++){
+            printf("%d\t",adjacency[i][j]);
+        }
+        printf("\n");
+    }
+}
+void addEdge(int from, int to){
+    if(from < MAX && to < MAX){
+        adjacency[from][to] = 1;
+        adjacency[to][from] = 1;
+        printf("\n Edge Added");
+    }
+}
+void push(int item){
+    if(top<MAX){
+        stack[++top] = item;
+
+    }
+}
+int pop(){
+    return stack[top--];
+}
+int isStackEmpty(){
+    if(top==-1){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+int peek(){
+    return stack[top];
+}
+void printVertex(int index){
+    printf("%c - > ", vertices[index]->data);
+}
+int findNearestNodes(int index){
+    int i;
+    for(i=0;i<MAX;i++){
+        if(adjacency[index][i] == 1 && vertices[i]->isVisited == false)
+            return i;
+        
+    }
+    return -1;
+}
+void dfs(){
+    int unVisitedVertex, isEmpty, visitedVertexFromStack;
+    vertices[0]->isVisited = true;
+    printVertex(0);
+    push(0);
+    while(!isStackEmpty()){
+        visitedVertexFromStack = peek();
+        if((unVisitedVertex = findNearestNodes(visitedVertexFromStack)) != -1 ){
+            vertices[unVisitedVertex]->isVisited = true;
+            printVertex(unVisitedVertex);
+            push(unVisitedVertex);
+
+        }
+        else{
+            pop();
+        }
+        
+        
+    }
+    
+    
+}
+int main()
+{
+    int n=5,i,j;
+    printf("GRAPH TRAVERSAL - BREATH FIRST SEARCH");
+    // making all the elements inside adjacency matrix to 0
+    for(i=0;i<n;i++){
+        for(j=0;j<n;j++){
+            adjacency[i][j] = 0;
+        }
+    }
+    printMatrix();
+    addVertex('S');   // 0
+    addVertex('A');   // 1
+    addVertex('B');   // 2
+    addVertex('C');   // 3
+    addVertex('D');   // 4
+    
+    addEdge(0, 1);    // S - A
+    addEdge(0, 2);    // S - B
+    addEdge(0, 3);    // S - C
+    addEdge(1, 4);    // A - D
+    addEdge(2, 4);    // B - D
+    addEdge(3, 4);    // C - D
+    
+    printMatrix();
+    
+    printf("\n DEPTH FIRST SEARCH \n ");
+    dfs();
+
+    return 0;
+}
