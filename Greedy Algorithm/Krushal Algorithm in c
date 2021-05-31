@@ -1,0 +1,127 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include<stdlib.h>
+int MAX = 6;
+int adjacency[6][6];
+int vertices[6];
+int compareList[6];
+
+typedef struct edge{
+    int u;
+    int v;
+    int w;
+}edge;
+// typedef struct edgeList{
+//     edge data[6];
+//     int n;
+// }edgeList;
+edge edgeList[6]; // array of edges
+edge spanList[6]; // array to store the result(spanning tree) edges
+int n=0; // count for number of edges
+int spanCount=0;
+void printMatrix(){
+    int i,j;
+    printf("\n Adjacency matrix \n ");
+    for(i=0;i<MAX;i++){
+        for(j=0;j<MAX;j++){
+            printf("%d\t",adjacency[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void addEdge(){
+    int i,j;
+    for(i=1;i<MAX;i++){
+        for(j=0;j<i;j++){
+            if(adjacency[i][j]!=0){
+                edgeList[n].u = i;
+                edgeList[n].v = j;
+                edgeList[n].w = adjacency[i][j];
+                n++;
+            }
+        }
+    }
+    
+}
+void sortEdges(){
+    int i,j;
+    edge temp;
+    for(i=0;i<n;i++){
+        for(j=i+1;j<n;j++){
+            if(edgeList[i].w > edgeList[j].w){
+                temp=edgeList[i];
+                edgeList[i] = edgeList[j];
+                edgeList[j] = temp;
+            }
+        }
+    }
+    // for(i=0;i<n;i++){
+    //     printf("\n %d",edgeList[i].w);
+    // }
+}
+void unionEdges(int index1, int index2){
+    int i;
+    for(i=0;i<MAX;i++){
+        if(compareList[i]==index2){
+            compareList[i] = index1;
+        }
+    }
+}
+void krushal(){
+    int i, find1,find2,cost=0;
+    addEdge();
+    sortEdges();
+    for(i=0;i<n;i++){
+        find1 = compareList[edgeList[i].u];
+        find2 = compareList[edgeList[i].v];
+        if(find1!=find2){
+            //no cycle by this vertex
+            spanList[spanCount++] = edgeList[i];
+            unionEdges(find1,find2); 
+            
+        }
+    }
+    printf("\n Minimum Spanning tree : \n ");
+    for(i=0;i<spanCount;i++){
+        printf("%d -> %d = %d \n", spanList[i].u,spanList[i].v,spanList[i].w);
+        cost = cost + spanList[i].w;
+    }
+    printf("\n Cost of Minimum Spanning tree : %d",cost);
+    
+}
+
+int main()
+{
+    int i,j,n;
+    printf("KRUSKAL'S ALGORITHM");
+    printf("\n No. of vertices: 6\n");
+    printf("\n Enter the adjacency matrix \n");
+    for(i=0;i<MAX;i++){
+        vertices[i] = i;
+    }
+    // making all the elements inside adjacency matrix to 0
+
+    for(i=0;i<MAX;i++){
+        for(j=0;j<MAX;j++){
+            scanf("%d",&adjacency[i][j]);
+        }
+    }
+    for(i=0;i<MAX;i++){
+        compareList[i]=i;
+    }
+    printMatrix();
+    printf("\n Krushal Implementation: \n");
+    krushal();
+    
+    
+
+    return 0;
+}
