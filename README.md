@@ -6,50 +6,50 @@ The data structure name indicates itself that organizing the data in memory. The
 ## Topics Covered:
 1. Stack 
 2. Queue 
-    a. Linear Queue - (array and linked list implementation)
-    b. Circular Queue - (array and linked list implementation)
-    c. Deque - (array and linked list implementation)
+    1. Linear Queue - (array and linked list implementation)
+    2. Circular Queue - (array and linked list implementation)
+    3. Deque - (array and linked list implementation)
 3. Linked List
-    a. Singly Linked list
-    b. Doubly Linked list
-    c. circular Linked List
-    d. doubly circular linked list
+    1. Singly Linked list
+    2. Doubly Linked list
+    3. circular Linked List
+    4. doubly circular linked list
 4. Recursion
-    a. Tower of Hanoi
+    1. Tower of Hanoi
 5. Sorting Algorithms
-    a. counting sort
-    b. bubble sort
-    c. insertion sort
-    d. selection sort
-    e. merge sort
-    f. quick sort
-    g. heap sort
+    1. counting sort
+    2. bubble sort
+    3. insertion sort
+    4. selection sort
+    5. merge sort
+    6. quick sort
+    7. heap sort
 6. Greedy Algorithm
-    a. Krushal Algorithm  - Minimum spanning tree
+     1. Krushal Algorithm  - Minimum spanning tree
 7. Dynamic Programming
 8. Divide and Conquer
-    a. Merge Sort
-    b. Quick sort
+     1. Merge Sort
+     2. Quick sort
 9. Expression Parsing
-    a. pre-fix expression evaluation
-    b. post-fix expression evaluation
-    c. infix to post fix conversion
+     1. pre-fix expression evaluation
+     2. post-fix expression evaluation
+     3. infix to post fix conversion
 10. Graphs
-     a. Breadth First Search
-     b. Depth First Search
+     1. Breadth First Search
+     2. Depth First Search
 11. Trees
-     a. Binary search tree implemenation (insertion, deletion, display)
-     b. level order traversal
-     c. in-order traversal
-     d. pre-order traversal
-     e. post-order traversal
-     f. height of the tree
-     g. number of nodes
-     h. Search
+     1. Binary search tree implemenation (insertion, deletion, display)
+     2. level order traversal
+     3. in-order traversal
+     4. pre-order traversal
+     5. post-order traversal
+     6. height of the tree
+     7. number of nodes
+     8. Search
 12. Heap
-     a. Min Heap
-     b. Max Heap
+     1. Min Heap
+     2. Max Heap
 13. Searching Algorithms
-     a. Binary Search
-     b. linear Search
-     c. Interpolation Search
+     1. Binary Search
+     2. linear Search
+     3. Interpolation Search
