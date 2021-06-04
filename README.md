@@ -53,3 +53,11 @@ The data structure name indicates itself that organizing the data in memory. The
      1. Binary Search
      2. linear Search
      3. Interpolation Search
+
+
+### References
+1. https://www.javatpoint.com/data-structure-tutorial
+2. https://www.tutorialspoint.com/data_structures_algorithms/index.html
+3. https://www.geeksforgeeks.org/
+4. https://www.programiz.com/dsa (implementation purpose)
+5. https://www.onlinegdb.com/online_c_compiler
