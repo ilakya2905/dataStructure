@@ -23,6 +23,6 @@ BST is a collection of nodes arranged in a way where they maintain BST propertie
 4. preorder traversal
 5. postorder traversal
 6. levelorder traversal
-7. display
+7. search
 8. height of the tree
 9. number of nodes in tree
