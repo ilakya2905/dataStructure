@@ -1,0 +1,106 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+int size=0;
+int a[10];
+void swap(int *a, int *b){
+    int temp = *b;
+    *b = *a;
+    *a = temp;
+}
+void heapify(int i){
+    int largest,right,left;
+    largest = i;
+    left = 2*i+1;
+    right = 2*i +2;
+    if(left < size && a[left] > a[largest]){
+        largest = left;
+    }
+    if(right < size && a[right] > a[largest]){
+        largest = right;
+    }
+    if(largest!=i){
+        swap(&a[i],&a[largest]);
+        heapify(largest);
+    }
+}
+void insert(){
+    int item,i;
+    printf("\n Enter the element to insert : ");
+    scanf("%d",&item);
+    if(size==0){
+        //no element in heap 
+        a[size] = item;
+        size++;
+        printf("\n Added to heap!");
+    }
+    else if(size==10){
+        printf("\n Heap is full cant add");
+    }
+    else{
+        a[size] = item;
+        size++;
+        //heapify
+        for(i=(size/2 - 1 );i>=0;i--){
+            heapify(i);
+        }
+        printf("\n Added to heap!");
+
+    }
+}
+void delete(){
+    int item,i;
+    printf("\n enter the element to be deleted : ");
+    scanf("%d",&item);
+    for(i=0;i<size;i++){
+        if(a[i]==item){
+            break;
+        }
+    }
+    swap(&a[i], &a[size-1]);
+    size--;
+    for(i= i/2 -1; i>=0;i--){
+        heapify(i);
+    }
+    printf("\n Item deleted");
+    
+}
+void print(){
+    int i;
+    printf("\n Heap Elemets \n");
+    for(i=0;i<size;i++){
+        printf("%d ",a[i]);
+    }
+}
+int main()
+{
+    int choice;
+    printf("\n MAX HEAP");
+    while(1){
+        printf("\n 1. Insert \n 2. Delete \n 3. View \n 4. Exit");
+        printf("\n Enter your choice: ");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+                insert();
+                break;
+            case 2:
+                delete();
+                break;
+            case 3:
+                print();
+                break;
+            case 4:
+                return 0;
+        }
+    }
+    
+
+    return 0;
+}
