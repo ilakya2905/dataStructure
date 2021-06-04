@@ -27,6 +27,8 @@ The data structure name indicates itself that organizing the data in memory. The
 6. Greedy Algorithm
      1. Krushal Algorithm  - Minimum spanning tree
 7. Dynamic Programming
+     1. Knapsack Problem - recursive solution
+     2. Knapsack Problem - optimised solution
 8. Divide and Conquer
      1. Merge Sort
      2. Quick sort
@@ -61,3 +63,4 @@ The data structure name indicates itself that organizing the data in memory. The
 3. https://www.geeksforgeeks.org/
 4. https://www.programiz.com/dsa (implementation purpose)
 5. https://www.onlinegdb.com/online_c_compiler
+6. https://www.thecrazyprogrammer.com
