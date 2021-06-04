@@ -1,0 +1,260 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node{
+    int data;
+    int *left;
+    int *right;
+};
+struct node *ROOT = NULL;
+void insert(){
+    int data;
+    struct node *current, *parent;
+    struct node *newNode = (struct node *)malloc(sizeof(struct node));
+    printf("\n Enter the data to insert : ");
+    scanf("%d",&data);
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    if(ROOT == NULL){
+        ROOT = newNode;
+        printf("\n Inserted successfully!");
+    }
+    else{
+        parent = ROOT;
+        while(parent!=NULL){
+            current = parent;
+            if(current->data > data){
+                parent = parent->left;
+                if(parent == NULL){
+                    current->left = newNode;
+                    printf("\n Inserted successfully");
+                    return;
+                }
+            }
+            else{
+                parent = parent->right;
+                if(parent == NULL){
+                    current->right = newNode;
+                    printf("\n Inserted successfully");
+                    return;
+                }
+            }
+        }
+    }
+    
+}
+void search(){
+    int s;
+    printf("\n Enter the element to be searched : ");
+    scanf("%d",&s);
+    struct node *current;
+    current = ROOT;
+    while(current->data  != s){
+        if(current!=NULL){
+            printf("%d -> ",current->data);
+        }
+        if(current->data > s){
+            current = current->left;
+        }
+        else{
+            current = current->right;
+        }
+        if(current == NULL){
+            printf("No such element!");
+            return;
+        }
+    }
+    printf("%d ", current->data);
+}
+void inOrder(struct node *root){
+    if(root!=NULL){
+        inOrder(root->left);
+        printf("%d ->",root->data);
+        inOrder(root->right);
+    }
+
+}
+void preOrder(struct node *root){
+    
+    if(root!=NULL){
+        printf("%d ->",root->data);
+        preOrder(root->left);
+        preOrder(root->right);
+    }
+    
+}
+
+void postOrder(struct node *root){
+    
+    if(root!=NULL){
+        postOrder(root->left);
+        postOrder(root->right);
+        printf("%d ->",root->data);
+
+    }
+
+}
+void printLevelOrderNodes(struct node *root, int h){
+    if(root == NULL){
+        return;
+    }
+    if(h==1){
+        printf("%d - >", root->data);
+    }
+    else{
+        printLevelOrderNodes(root->left,h-1);
+        printLevelOrderNodes(root->right,h-1);
+    }
+}
+void levelOrder(struct node *root){
+    int i=0;
+    int h = height(root);
+    for(i=1;i<=h;i++){
+        printLevelOrderNodes(root,i);
+    }
+}
+int findMaximum(struct node *root){
+    while(root->right!=NULL){
+        root = root->right;
+    }
+    return root->data;
+}
+struct node* findMinimum(struct node *root){
+    while(root->left!=NULL){
+        root = root->left;
+    }
+    return root;
+}
+struct node* delete(struct node *root, int item ){
+    
+    if(root == NULL){
+        return root;
+    }
+    else if(root->data < item){
+        root->right = delete(root->right,item);
+    }
+    else if(root->data > item){
+        root->left = delete(root->left,item);
+    }
+    else{
+        //nodee to be deleted is found
+        
+        // case 1: no child
+        if(root->left == NULL && root->right == NULL){
+            free(root);
+            root=NULL;
+            printf("\n Deleted successfully!");
+            return root;
+        }
+        
+        // case 2: oonly one child
+        else if(root->left == NULL){
+            struct node * temp = root;
+            root = root->right;
+            free(temp);
+            printf("\n Deleted successfully!");
+            return root;
+        }
+        else if(root->right == NULL){
+            struct node * temp = root;
+            root = root->right;
+            free(temp);
+            printf("\n Deleted successfully!");
+            return root;
+        }
+        
+        // case 3: both child
+        else{
+            struct node *temp = findMinimum(root->right);
+            root->data = temp->data;
+            root->right = delete(root->right,temp->data);
+        }
+    }
+    
+}
+int height(struct node* root){
+    int l,r;
+    if(root==NULL){
+        return 0;
+    }
+    else{
+        l = height(root->left);
+        r= height(root->right);
+        if(l>r)
+            return l+1;
+        else
+            return r+1;
+    }
+}
+int count(struct node* root)
+{
+    int l,r;
+    if(root==NULL){
+        return 0;
+    }
+    else{
+        l=count(root->left);
+        r=count(root->right);
+        return (1+l+r);
+    }
+}
+int main()
+{
+    int choice,item,h;
+    struct node * temp;
+    printf("BINARY SEARCH TREE");
+    while(1){
+    
+        printf("\n 1. Insert \n 2. Search \n 3. Delete \n 4. In-order traversal \n 5. Pre-order traversal \n 6. Post-order traversal \n 7. Level-order traversal \n 8. Height \n 9. Number of Nodes \n 10. Exit");
+        printf("\n Enter a choice : ");
+        scanf("%d", &choice);
+        switch(choice){
+            case 1:
+                insert();
+                break;
+            case 2:
+                search();
+                break;
+            case 3:
+                printf("\n Enter the item to delete : ");
+                scanf("%d",&item);
+                temp = delete(ROOT,item);
+            case 4:
+                printf("\n IN-ORDER TRAVERSAL \n");
+                inOrder(ROOT);
+                break;
+            case 5:
+                printf("\n PRE-ORDER TRAVERSAL \n");
+                preOrder(ROOT);
+                break;
+            case 6:
+                printf("\n POST-ORDER TRAVERSAL \n");
+                postOrder(ROOT);
+                break;
+            case 7:
+                printf("\n LEVEL-ORDER TRAVERSAL \n");
+                levelOrder(ROOT);
+                break;
+            case 8:
+                printf("\n Height of the tree : %d",height(ROOT));
+                break;
+            case 9:
+                h = count(ROOT);
+                printf("\n Number of nodes in BST: %d",h);
+                break;
+            case 10:
+                return 0;
+        }
+    }
+
+    return 0;
+}
