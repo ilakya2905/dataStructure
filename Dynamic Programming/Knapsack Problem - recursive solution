@@ -1,0 +1,57 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+
+int maximum(int a, int b){
+    if(a>b){
+        return a;
+    }
+    else{
+        return b;
+    }
+}
+int knapsack(int c, int n, int w[], int v[]){
+    
+    // case 1: when no more elements or when there is 0 capacity
+    if(c==0 || n==0){
+        return 0;
+    }
+    
+    // case 2: when the weight of the last element is greater than the total capacity
+    else if(w[n-1]>c){
+        return knapsack(c,n-1,w,v);
+    }
+    
+    else{
+        int firstPossibility = v[n-1] + knapsack(c-w[n-1],n-1,w,v);
+        int secondPossibility = knapsack(c,n-1,w,v);
+        return maximum(firstPossibility,secondPossibility);
+    }
+}
+
+int main()
+{
+    int c,n,i,result;
+    printf("\n KNAPSACK PROBLEM - RECURSIVE METHOD");
+    printf("\n Enter the total capacity of the bag : ");
+    scanf("%d", &c);
+    printf("\n Enter number of elements : ");
+    scanf("%d",&n);
+    int v[n], w[n];
+    printf("\n Enter the value and weigtht for each element : \n");
+    for(i=0;i<n;i++){
+        printf("\n Value : ");
+        scanf("%d",&v[i]);
+        printf("\n Weight : ");
+        scanf("%d",&w[i]);
+    }
+    result = knapsack(c,n,w,v);
+    printf("\n Maximum Value that can be stored is : %d", result);
+    return 0;
+}
